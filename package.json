@@ -1,0 +1,24 @@
+{
+  "name": "balacobaco-orm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "license": "MIT",
+  "description": "Projeto Final Desenvolvido para a matéria de Programação Orientada a Objeto",
+  "contributors": [
+    {
+      "name": "Luiz Paulo R. S. Santos",
+      "email": "luizpaulorodrigues2005@gmail.com",
+      "url": "https://github.com/luizpaulo2005"
+    },
+    {
+      "name": "Vitor de Souza Lichoti",
+      "email": "vitorlichoti@gmail.com",
+      "url": "https://github.com/vitorlichoti"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luizpaulo2005/balacobaco-orm"
+  }
+}
