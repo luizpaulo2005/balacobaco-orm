@@ -7,7 +7,7 @@ class ORM {
     }
     this.#lista = [];
   }
-  
+
   #createItem(item) {
     const qtd = this.#lista.length;
     if (item != undefined || item != null) {
@@ -28,6 +28,17 @@ class ORM {
 
   create(item) {
     return this.#createItem(item);
+  }
+
+  #createManyItems(items) {
+    items.forEach(element => {
+      this.#createItem(element);
+    });
+    return "Itens adicionados";
+  }
+
+  createMany(items) {
+    return this.#createManyItems(items);
   }
 
   #selecionarTodos() {
