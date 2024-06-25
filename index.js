@@ -1,24 +1,24 @@
 class ORM {
-  #lista;
+  #list;
 
   constructor() {
     if (this.constructor === ORM) {
       throw new Error("Objeto ORM não pode ser instânciado");
     }
-    this.#lista = [];
+    this.#list = [];
   }
 
   #createItem(item) {
-    const qtd = this.#lista.length;
+    const qtd = this.#list.length;
     if (item != undefined || item != null) {
       if (qtd == 0) {
-        this.#lista.push({
+        this.#list.push({
           id: 0,
           ...item,
         });
       } else {
-        this.#lista.push({
-          id: this.#lista[qtd - 1].id + 1,
+        this.#list.push({
+          id: this.#list[qtd - 1].id + 1,
           ...item,
         });
       }
@@ -41,41 +41,41 @@ class ORM {
     return this.#createManyItems(items);
   }
 
-  #selecionarTodos() {
-    if (this.#lista.length == 0) {
-      return `Lista de ${this.constructor.name}(s) vazia`;
+  #selectMany() {
+    if (this.#list.length == 0) {
+      return `list de ${this.constructor.name}(s) vazia`;
     }
 
-    return this.#lista.map((item) => {
+    return this.#list.map((item) => {
       return JSON.stringify(item);
     });
   }
 
   get selectAll() {
-    return this.#selecionarTodos();
+    return this.#selectMany();
   }
 
-  #selecionarUnico(id) {
-    if (!this.#lista.find((item) => item.id == id)) {
+  #selectUnique(id) {
+    if (!this.#list.find((item) => item.id == id)) {
       return `Item ${id} não encontrado`;
     }
 
-    return this.#lista.find((item) => item.id == id);
+    return this.#list.find((item) => item.id == id);
   }
 
   selectUnique(id) {
-    return this.#selecionarUnico(id);
+    return this.#selectUnique(id);
   }
 
-  #atualizar(id, item) {
-    const obj = this.#lista.find((item) => item.id == id);
+  #updateUnique(id, item) {
+    const obj = this.#list.find((item) => item.id == id);
     if (!obj) {
       return `Item ${id} não encontrado`;
     }
 
-    const index = this.#lista.indexOf(obj);
+    const index = this.#list.indexOf(obj);
 
-    this.#lista[index] = {
+    this.#list[index] = {
       id,
       ...item,
     };
@@ -83,22 +83,22 @@ class ORM {
   }
 
   update(id, item) {
-    return this.#atualizar(id, item);
+    return this.#updateUnique(id, item);
   }
 
-  #apagar(id) {
-    const item = this.#lista.find((item) => item.id == id);
+  #deleteUnique(id) {
+    const item = this.#list.find((item) => item.id == id);
     if (!item) {
       return `Item ${id} não encontrado`;
     }
-    const index = this.#lista.indexOf(item);
-    this.#lista.splice(index, 1);
+    const index = this.#list.indexOf(item);
+    this.#list.splice(index, 1);
 
     return `Item ${id} excluído`;
   }
 
   delete(id) {
-    return this.#apagar(id);
+    return this.#deleteUnique(id);
   }
 }
 
