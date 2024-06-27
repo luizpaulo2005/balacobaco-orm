@@ -1,5 +1,8 @@
+import { ErrorHandler } from "./helper.js";
+
 class ORM {
   #list;
+  #validateArgument = new ErrorHandler();
 
   constructor() {
     if (this.constructor === ORM) {
@@ -9,6 +12,7 @@ class ORM {
   }
 
   #createItem(item) {
+    this.#validateArgument.objectValidation(item);
     const qtd = this.#list.length;
     if (item != undefined || item != null) {
       if (qtd == 0) {
@@ -31,6 +35,7 @@ class ORM {
   }
 
   #createManyItems(items) {
+    this.#validateArgument.arrayValidation(items);
     items.forEach(element => {
       this.#createItem(element);
     });
@@ -56,6 +61,7 @@ class ORM {
   }
 
   #selectUnique(id) {
+    this.#validateArgument.idValidation(id, this.#list[0].id);
     if (!this.#list.find((item) => item.id == id)) {
       return `Item ${id} não encontrado`;
     }
@@ -68,6 +74,8 @@ class ORM {
   }
 
   #updateUnique(id, item) {
+    this.#validateArgument.idValidation(id, this.#list[0].id);
+    this.#validateArgument.objectValidation(item);
     const obj = this.#list.find((item) => item.id == id);
     if (!obj) {
       return `Item ${id} não encontrado`;
@@ -87,6 +95,7 @@ class ORM {
   }
 
   #deleteUnique(id) {
+    this.#validateArgument.idValidation(id, this.#list[0].id);
     const item = this.#list.find((item) => item.id == id);
     if (!item) {
       return `Item ${id} não encontrado`;
