@@ -1,4 +1,4 @@
-import { ErrorHandler } from "./helper.js";
+import { ErrorHandler } from "./handler.js";
 
 class ORM {
   #list;
